@@ -3,7 +3,7 @@ OpenBSD Configuration
 
 These are some configuration files from my OpenBSD 7.1 systems.
 
-blocklist      - Makefile to create a blocklist for unwind(8)
+blocklist      - Makefile to create blocklists for unwind(8) and pf(4)
 etc            - customized config files from /etc
 etc/X11/xenodm - customized xenodm config files
 home           - customized config files from $HOME
@@ -52,7 +52,7 @@ Helpful Links
 
 5. Other
 
-   Windowmaker:   https://www.windowmaker.org/docs/installation.html
-   mimeapps.list: https://gist.github.com/professorjamesmoriarty/6087174
-
+   Getting Started: https://dataswamp.org/~solene/2021-05-03-openbsd-getting-started.html
+   Windowmaker:     https://www.windowmaker.org/docs/installation.html
+   mimeapps.list:   https://gist.github.com/professorjamesmoriarty/6087174
 
