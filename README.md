@@ -1,0 +1,2 @@
+# openbsd-config
+OpenBSD Configuration
