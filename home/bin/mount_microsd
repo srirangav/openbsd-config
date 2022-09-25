@@ -1,0 +1,28 @@
+#!/bin/sh
+# mount_microsd - mount a microsd card
+# based on: https://romanzolotarev.com/openbsd/exfat.html
+
+DOAS=/usr/bin/doas
+MOUNT_EXFAT=/usr/local/sbin/mount.exfat
+
+MICROSD_DEV=/dev/sd1i
+MICROSD_DIR=/Volumes/microsd
+
+if [ ! -x "$MOUNT_EXFAT" ] ; then
+   echo "ERROR: $MOUNT_EXFAT unavailable." >&2 ;
+   exit 1 ;
+fi
+
+if [ ! -d "$MICROSD_DIR" ] ; then
+   echo "ERROR: $MICROSD_DIR does not exist or is not a directory." >&2 ;
+   exit 1 ;
+fi
+
+if [ X"$UID" = "X" ] ; then
+   UID="`/usr/bin/id -u`" ;
+   export UID ;
+fi
+
+"$DOAS" "$MOUNT_EXFAT" -o uid="$UID" "$MICROSD_DEV" "$MICROSD_DIR"
+exit $?
+
