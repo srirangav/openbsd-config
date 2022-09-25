@@ -1,4 +1,5 @@
 # Makefile for unwind blocklist
+# based on: https://github.com/elasmo/openbsd-helpers/blob/master/unbound-blacklist.sh
 
 ADGUARD_URL   = https://adguardteam.github.io/AdGuardSDNSFilter/Filters/filter.txt
 ADGUARD_FILE  = adguard.txt
