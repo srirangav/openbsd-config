@@ -20,3 +20,5 @@ set iclower
 set searchincr
 " print helpful messages (eg, 4 lines yanked)
 set report=1
+" show lines numbers
+set nu
