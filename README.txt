@@ -50,9 +50,14 @@ Helpful Links
    https://github.com/horia/unwinder/blob/master/src/etc/unwind.conf
    https://github.com/elasmo/openbsd-helpers/blob/master/unbound-blacklist.sh
 
-5. Other
+5. Printing
+
+   https://ffuentes.sdf.org/unix/2021/06/10/printing-in-openbsd.html
+   https://paedubucher.ch/articles/2020-09-20-basic-printing-on-openbsd.html
+
+6. Other
 
    Getting Started: https://dataswamp.org/~solene/2021-05-03-openbsd-getting-started.html
    Windowmaker:     https://www.windowmaker.org/docs/installation.html
    mimeapps.list:   https://gist.github.com/professorjamesmoriarty/6087174
-
+   Laptop Install:  https://sohcahtoa.org.uk/openbsd.html
