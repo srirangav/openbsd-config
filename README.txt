@@ -159,3 +159,6 @@ Helpful Links
 
                    https://github.com/lea2501/guides/blob/main/openbsd_guide_install-post_install-ntpd_remove_google_check.md
 
+   Enable Hyperthreading:
+ 
+                  https://www.reddit.com/r/openbsd/comments/qa7a25/can_i_somehow_enable_hyperthreading/
