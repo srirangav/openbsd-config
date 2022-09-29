@@ -86,11 +86,12 @@ Helpful Links
    https://www.kariliq.nl/man/siren.1.html
    https://www.linuxlinks.com/siren-text-based-audio-player/2/
 
-   CD Ripping:
+   CDs/DVDs/ISOs:
 
    https://daemonforums.org/showthread.php?t=6560
    https://help.ubuntu.com/community/CDRipping
    https://linuxconfig.org/how-to-rip-an-audio-cd-from-the-command-line-using-cdparanoia
+   https://github.com/lea2501/guides/blob/main/openbsd_mount.md
 
 4. PDF / Image Viewers / Editors
 
