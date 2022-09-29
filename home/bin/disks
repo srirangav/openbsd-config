@@ -1,0 +1,22 @@
+#!/bin/sh
+# disks - list disks on OpenBSD
+
+SED=/usr/bin/sed
+AWK=/usr/bin/awk
+SYSCTL=/sbin/sysctl
+
+for i in "$SED" "$AWK" "$SYSCTL"
+do
+	type "$i" > /dev/null 2>&1
+    if [ $? -ne 0 ] ; then
+       echo "ERROR: $i not available. Exiting." >&2 ; 
+       exit 1;
+    fi
+done
+
+"$SYSCTL" hw.disknames | \
+"$SED" -e 's/^.*=//' | \
+"$AWK" -F, '{ for (i=1;i<=NF;i++) { print $i; } }'
+
+exit $?
+
