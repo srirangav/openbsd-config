@@ -27,6 +27,7 @@ Helpful Links
 
    https://www.openbsdhandbook.com/disk_operations/encryption/
    https://www.openbsd.org/faq/faq14.html#softraid
+   https://github.com/lea2501/guides/blob/main/openbsd_guide_bioctl.md
 
    Laptops:
 
