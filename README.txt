@@ -61,7 +61,7 @@ Helpful Links
 
    $ xtsscale -c -d /dev/wsmouse0
 
-   USB Drives:
+   Mounting USB Drives:
 
    https://www.tumfatig.net/2011/automount-usb-stick-on-openbsd/
    https://www.cyberciti.biz/faq/openbsd-mounting-usb-flash-drive-harddisk/
@@ -147,6 +147,14 @@ Helpful Links
 9. Other
 
    Sound:          https://github.com/krzysztofengineer/openbsd/blob/master/configuration/03-sound.md
+
    Screenshots:    https://github.com/krzysztofengineer/openbsd/blob/master/dwm/05-screenshots.md
+
    HDMI Mirroring: https://github.com/krzysztofengineer/openbsd/blob/master/tasks/03-hdmi.md
+
    mimeapps.list:  https://gist.github.com/professorjamesmoriarty/6087174
+  
+   Remove google from ntpd.conf: 
+
+                   https://github.com/lea2501/guides/blob/main/openbsd_guide_install-post_install-ntpd_remove_google_check.md
+
