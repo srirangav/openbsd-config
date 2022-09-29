@@ -1,5 +1,6 @@
 #!/bin/sh
 # disks - list disks on OpenBSD
+# Based on: https://github.com/lea2501/guides/blob/main/openbsd_disklabel.md
 
 SED=/usr/bin/sed
 AWK=/usr/bin/awk
