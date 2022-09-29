@@ -1,6 +1,9 @@
 #!/bin/sh
 # mount_microsd - mount a microsd card
 # based on: https://romanzolotarev.com/openbsd/exfat.html
+#
+# Usage: mount_mircosd [device]
+#
 
 DOAS=/usr/bin/doas
 MOUNT_EXFAT=/usr/local/sbin/mount.exfat
