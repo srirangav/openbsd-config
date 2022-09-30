@@ -154,11 +154,19 @@ Helpful Links
    HDMI Mirroring: https://github.com/krzysztofengineer/openbsd/blob/master/tasks/03-hdmi.md
 
    mimeapps.list:  https://gist.github.com/professorjamesmoriarty/6087174
-  
-   Remove google from ntpd.conf: 
+
+   Remove google from ntpd.conf:
 
                    https://github.com/lea2501/guides/blob/main/openbsd_guide_install-post_install-ntpd_remove_google_check.md
 
    Enable Hyperthreading:
- 
+
                   https://www.reddit.com/r/openbsd/comments/qa7a25/can_i_somehow_enable_hyperthreading/
+
+   sshfs (once it is added through pkg_add):
+
+                  https://dataswamp.org/~solene/2022-07-23-openbsd-sshfs.html
+
+   $ doas sshfs -o idmap=user,allow_other,uid="`id -u`",gid="`id -g`" \
+          [user]@[host]:[remote dir] [local dir]
+
