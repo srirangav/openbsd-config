@@ -2,7 +2,7 @@
 # based on: https://dataswamp.org/~solene/2021-05-03-openbsd-getting-started.html
 
 x11prefix="/usr/X11R6"
-x11exec_prefix="${prefix}/bin"
+x11exec_prefix="${x11prefix}/bin"
 localprefix="/usr/local"
 localexec_prefix="${localprefix}/bin"
 
