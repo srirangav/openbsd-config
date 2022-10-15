@@ -1,0 +1,51 @@
+KeePassXC
+---------
+
+These are my notes on getting KeePassXC's browser integration working
+on Firefox on OpenBSD 7.1:
+
+1. Install the keepassxc--browser package
+
+   $ doas pkg_add keepassxc--browser
+
+2. Add the following to /etc/firefox/unveil.main:
+
+   /usr/local/bin/keepassxc-proxy rx
+
+3. Create the file ~/.config/mozilla/native-messaging-hosts/org.keepassxc.keepassxc_browser.json with the following contents:
+
+   {
+       "allowed_extensions": [
+	   "keepassxc-browser@keepassxc.org"
+       ],
+       "description": "KeePassXC integration with native messaging support",
+       "name": "org.keepassxc.keepassxc_browser",
+       "path": "/usr/local/bin/keepassxc-proxy",
+       "type": "stdio"
+   }
+
+4. Start KeePassXC, e.g.:
+
+   $ keepassxc &
+
+5. Start FireFox, e.g.:
+
+   $ firefox &
+
+6. Install the KeePassXC Firefox plugin:
+
+   https://addons.mozilla.org/en-US/firefox/addon/keepassxc-browser
+
+7. Follow the standard KeePassXC steps for enabling browser integration:
+
+   https://keepassxc.org/docs/KeePassXC_GettingStarted.html#_configure_keepassxc_browser
+
+After restarting Firefox, it should be possible to connect to a running 
+instance of KeePassXC with an unlocked database.
+
+References
+----------
+
+https://github.com/PiRAT4/keepassxc/blob/main/pkg/README
+https://github.com/keepassxreboot/keepassxc-browser/wiki/Troubleshooting-guide
+https://raw.githubusercontent.com/keepassxreboot/keepassxc/master/utils/keepassxc-snap-helper.sh
