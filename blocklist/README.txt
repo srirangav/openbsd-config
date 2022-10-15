@@ -30,7 +30,7 @@ to block connections to ad servers and/or dangerous hosts.
    block list "/var/db/unwind_blocklist.txt"
 
 5. After installing or updating the blocklists, pf(4) and unwind(8) need
-   to be restarted:
+   to be reloaded:
 
    $ doas pfctl -v -f /etc/pf.conf
    $ doas rcctl restart unwind
@@ -44,3 +44,4 @@ https://www.tumfatig.net/2022/ads-blocking-with-openbsd-unbound8/
 https://github.com/horia/unwinder/blob/master/src/etc/unwind.conf
 https://github.com/elasmo/openbsd-helpers/blob/master/unbound-blacklist.sh
 https://github.com/drduh/config/blob/master/scripts/pf-blocklist.sh
+
