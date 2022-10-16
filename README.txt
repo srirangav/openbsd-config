@@ -5,10 +5,8 @@ These are some configuration files from my OpenBSD 7.1 systems.
 
 blocklist      - Makefile to create blocklists for unwind(8) and pf(4)
 etc            - customized config files from /etc
-etc/X11/xenodm - customized xenodm config files
 home           - customized config files from $HOME
-home/bin       - local scripts and programs
-home/GNUStep   - customized GNUStep/Windowmaker config files
+notes          - notes about OpenBSD
 
 Helpful Links
 -------------
@@ -100,24 +98,17 @@ Helpful Links
    https://www.pinta-project.com/
    https://www.tumfatig.net/2021/annotate-your-pdf-files-on-openbsd/
 
-5. Ad blocking with unwind(8)
-
-   https://why-openbsd.rocks/fact/unwind/
-   https://www.tumfatig.net/2019/blocking-ads-using-unbound8-on-openbsd/
-   https://github.com/horia/unwinder/blob/master/src/etc/unwind.conf
-   https://github.com/elasmo/openbsd-helpers/blob/master/unbound-blacklist.sh
-
-6. Printing
+5. Printing
 
    https://ffuentes.sdf.org/unix/2021/06/10/printing-in-openbsd.html
    https://paedubucher.ch/articles/2020-09-20-basic-printing-on-openbsd.html
 
-7. pf
+6. pf
 
    https://www.openbsdhandbook.com/pf/cheat_sheet/
    https://github.com/muktadiur/blockor
 
-8. X11
+7. X11
 
    Mouse pointer:
 
@@ -145,7 +136,7 @@ Helpful Links
 
    https://github.com/krzysztofengineer/openbsd/blob/master/dwm/03-wallpaper.md
 
-9. Other
+8. Other
 
    Sound: 
 
