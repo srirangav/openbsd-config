@@ -71,4 +71,6 @@ $XDG_DATA_HOME/recently-used.xbel rwc
 $XDG_DATA_HOME/themes r
 
 # for using the KeePassXC-Browser addon with the keepassxc--browser package
+/usr/local/bin r
 /usr/local/bin/keepassxc-proxy rx
+
