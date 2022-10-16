@@ -1,18 +1,27 @@
-KeePassXC
----------
+KeePassXC Browser Integration on OpenBSD
+----------------------------------------
 
-These are my notes on getting KeePassXC's browser integration working
-on Firefox on OpenBSD 7.1:
+These are my notes on getting KeePassXC'Gs browser integration working
+on Firefox, Chromium, and Iridium on OpenBSD 7.1:
 
 1. Install the keepassxc--browser package
 
    $ doas pkg_add keepassxc--browser
 
-2. Add the following to /etc/firefox/unveil.main:
+2. Add the following lines to the browser's unveil.main to allow the 
+   browser to read /usr/local/bin and to execute keepassxc-proxy: 
 
+   /usr/local/bin r
    /usr/local/bin/keepassxc-proxy rx
 
-3. Create the file ~/.config/mozilla/native-messaging-hosts/org.keepassxc.keepassxc_browser.json with the following contents:
+   For Firefox, update:  /etc/firefox/unveil.main 
+   For Chromium, update: /etc/chromium/unveil.main
+   For Iridium, update:  /etc/iridium/unveil.main 
+
+3. Create a native messaging hosts file to allow the browser to 
+   communicate with keepassxc-proxy:
+
+   For Firefox, create the file ~/.config/mozilla/native-messaging-hosts/org.keepassxc.keepassxc_browser.json with the following contents:
 
    {
        "allowed_extensions": [
@@ -24,23 +33,61 @@ on Firefox on OpenBSD 7.1:
        "type": "stdio"
    }
 
+   For Chromium, create the file ~/.config/chromium/NativeMessagingHosts/org.keepassxc.keepassxc_browser.json with the following contents:
+
+   {
+       "allowed_origins": [
+	   "chrome-extension://oboonakemofpalcgghocfoadofidjkkk/"
+       ],
+       "description": "KeePassXC integration with native messaging support",
+       "name": "org.keepassxc.keepassxc_browser",
+       "path": "/usr/local/bin/keepassxc-proxy",
+       "type": "stdio"
+   }
+
+   For Iridium, create the file ~/.config/iridium/NativeMessagingHosts/org.keepassxc.keepassxc_browser.json with the following contents:
+
+   {
+       "allowed_origins": [
+	   "chrome-extension://oboonakemofpalcgghocfoadofidjkkk/"
+       ],
+       "description": "KeePassXC integration with native messaging support",
+       "name": "org.keepassxc.keepassxc_browser",
+       "path": "/usr/local/bin/keepassxc-proxy",
+       "type": "stdio"
+   }
+
 4. Start KeePassXC, e.g.:
 
    $ keepassxc &
 
-5. Start FireFox, e.g.:
+5. Start the browser, e.g.:
 
    $ firefox &
 
-6. Install the KeePassXC Firefox plugin:
+   or
+
+   $ chrome --enable-unveil --incognito
+
+   or
+
+   $ iridium --incognito
+
+6. Install the KeePassXC plugin:
+
+   For Firefox: 
 
    https://addons.mozilla.org/en-US/firefox/addon/keepassxc-browser
+
+   For Iridium and Chromiun: 
+
+   https://chrome.google.com/webstore/detail/keepassxc-browser/oboonakemofpalcgghocfoadofidjkkk
 
 7. Follow the standard KeePassXC steps for enabling browser integration:
 
    https://keepassxc.org/docs/KeePassXC_GettingStarted.html#_configure_keepassxc_browser
 
-After restarting Firefox, it should be possible to connect to a running 
+After restarting the browser, it should be possible to connect to a running 
 instance of KeePassXC with an unlocked database.
 
 References
@@ -49,3 +96,11 @@ References
 https://github.com/PiRAT4/keepassxc/blob/main/pkg/README
 https://github.com/keepassxreboot/keepassxc-browser/wiki/Troubleshooting-guide
 https://raw.githubusercontent.com/keepassxreboot/keepassxc/master/utils/keepassxc-snap-helper.sh
+https://www.mail-archive.com/misc@openbsd.org/msg182013.html
+https://github.com/openbsd/ports/commit/3d184e0dca0a5e044875ff20fdd26ce3b971de46
+
+History
+-------
+
+2022-10-15 Initial Version with Firefox instructions
+2022-10-16 Updates for Chromium and Iridium
