@@ -16,6 +16,10 @@ export XCURSOR_SIZE
 ${x11exec_prefix}/xrdb -merge ~/.Xresources
 ${x11exec_prefix}/xmodmap ~/.xmodmap
 
+# fix scaling of some X/QT Programs
+
+${x11exec_prefix}/xrandr --dpi 96
+
 # turn off the bell
 
 ${x11exec_prefix}/xset b off
@@ -34,7 +38,7 @@ ${x11exec_prefix}/xidle -no -program "${x11exec_prefix}/xlock -mode blank" -time
 
 # start a compositor for faster window drawing
 
-${localexec_prefix}/picom &
+#${localexec_prefix}/picom &
 
 # start a terminal 
 
@@ -43,7 +47,7 @@ ${localexec_prefix}/mate-terminal &
 
 # start some window maker utilities 
 
-${localexec_prefix}/wmCalClock &
+#${localexec_prefix}/wmCalClock &
 #${localexec_prefix}/wmapm &
 #${localexec_prefix}/wmmon &
 
