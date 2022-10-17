@@ -23,6 +23,7 @@ OpenBSD on laptops generally:
     https://www.tumfatig.net/2011/using-openbsd-as-a-workstation/
     https://begriffs.com/posts/2017-05-17-openbsd-workstation-guide.html
     https://dataswamp.org/~solene/2021-05-03-openbsd-getting-started.html
+    https://nechtan.io/articles/openbsd_minimalist_desktop.html
 
 Booting / Shutdown / Restart
 ----------------------------
