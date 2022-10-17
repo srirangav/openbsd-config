@@ -1,5 +1,7 @@
 # .xsession
-# based on: https://dataswamp.org/~solene/2021-05-03-openbsd-getting-started.html
+# based on:
+#    https://dataswamp.org/~solene/2021-05-03-openbsd-getting-started.html
+#    https://nechtan.io/articles/openbsd_minimalist_desktop.html
 
 x11prefix="/usr/X11R6"
 x11exec_prefix="${x11prefix}/bin"
@@ -11,14 +13,17 @@ localexec_prefix="${localprefix}/bin"
 XCURSOR_SIZE=48
 export XCURSOR_SIZE
 
+# No core dumps!
+ulimit -Sc 0
+
 # load X11 settings
 
 ${x11exec_prefix}/xrdb -merge ~/.Xresources
 ${x11exec_prefix}/xmodmap ~/.xmodmap
 
-# fix scaling of some X/QT Programs
+# uncomment to fix scaling of some X/QT Programs
 
-${x11exec_prefix}/xrandr --dpi 96
+#${x11exec_prefix}/xrandr --dpi 96
 
 # turn off the bell
 
@@ -36,7 +41,7 @@ ${localexec_prefix}/autocutsel &
 
 ${x11exec_prefix}/xidle -no -program "${x11exec_prefix}/xlock -mode blank" -timeout 300 &
 
-# start a compositor for faster window drawing
+# uncomment to start a compositor for faster window drawing
 
 #${localexec_prefix}/picom &
 
