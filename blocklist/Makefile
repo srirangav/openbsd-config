@@ -8,6 +8,9 @@
 BL_DIR        = /var/db
 UNWIND_BL     = unwind_blocklist.txt
 PF_BL         = pf_blocklist.txt
+BL_USER       = root
+BL_GROUP      = staff
+BL_MODE       = 0644
 
 # URLs
 
@@ -45,6 +48,7 @@ GREP=/usr/bin/grep
 UNIQ=/usr/bin/uniq
 SED=/usr/bin/sed
 SORT=/usr/bin/sort
+INSTALL=/usr/bin/install
 
 # rules
 
@@ -99,8 +103,10 @@ $(YOYO_FILE):
 	$(FTP) -o $(YOYO_FILE) $(YOYO_URL)
 
 install: all
-	/bin/cp -i $(UNWIND_BL) $(PF_BL) $(BL_DIR)
-	/bin/chmod a-wx $(BL_DIR)/$(UNWIND_BL) $(BL_DIR)/$(PF_BL)
+	$(INSTALL) -o $(BL_USER) -g $(BL_GROUP) -m $(BL_MODE) \
+               $(UNWIND_BL) $(BL_DIR)/$(UNWIND_BL)
+	$(INSTALL) -o $(BL_USER) -g $(BL_GROUP) -m $(BL_MODE) \
+               $(PF_BL) $(BL_DIR)/$(PF_BL)
 
 clean:
 	/bin/rm -f $(UNWINDBL_FILES) $(UNWIND_BL) $(PF_BL)
