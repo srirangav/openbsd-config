@@ -1,0 +1,173 @@
+Surface Go 2 and OpenBSD
+------------------------
+
+These are my notes on running OpenBSD 7.1 on a Surface Go 2.
+
+The most helpful link to get started with OpenBSD on a Surface
+Go 2 is Joshua Stein webpage on about running OpenBSD on a
+Surface Go 2:
+
+    https://jcs.org/2020/05/15/surface_go2
+
+The Linux Surface project's Surface Go 2 page is also helpful:
+
+    https://github.com/linux-surface/linux-surface/wiki/Surface-Go-2
+
+In addition, the following links are very helpful about running
+OpenBSD on laptops generally:
+
+    https://www.c0ffee.net/blog/openbsd-on-a-laptop/
+    https://sohcahtoa.org.uk/openbsd.html
+    https://kevinthomas.dev/posts/openbsd-thinkpadt480.html
+    https://icyphox.sh/blog/openbsd-hp-envy/
+    https://www.tumfatig.net/2011/using-openbsd-as-a-workstation/
+    https://begriffs.com/posts/2017-05-17-openbsd-workstation-guide.html
+    https://dataswamp.org/~solene/2021-05-03-openbsd-getting-started.html
+
+Booting / Shutdown / Restart
+----------------------------
+
+1. In addition to Joshua Stein's notes, I found Microsoft's support
+   pages on booting from a USB drive and forcing a shutdown / reboot
+   helpful:
+
+   https://support.microsoft.com/en-us/surface/boot-surface-from-a-usb-device-fe7a7323-8d1d-823d-be17-9aec89c4f9f5
+   
+   https://support.microsoft.com/en-us/surface/force-a-shutdown-and-restart-your-surface-cf13996e-fef0-dbb0-1e94-cdd7ff88b840
+
+2. Enabling apmd(8) for power / battery monitoring:
+
+   $ doas rcctl enable apmd
+   $ doas rcctl set apmd flags -A
+   $ doas rcctl start apmd
+
+   From: https://dataswamp.org/~solene/2021-05-03-openbsd-getting-started.html
+   
+3. To hibernate (no other sleep mode works on the Surface Go 2):
+
+   $ apm -Z
+
+Firmware
+--------
+
+1. Post-install, I had to download the following files on to USB drive
+   on a different computer because the Surface Go 2's WiFi needs firmware:
+
+    http://firmware.openbsd.org/firmware/7.1/iwx-firmware-20211101.tgz
+    http://firmware.openbsd.org/firmware/7.1/intel-firmware-20220207v0.tgz
+    http://firmware.openbsd.org/firmware/7.1/inteldrm-firmware-20211027.tgz
+
+2. Once downloaded, I ran fw_update as follows (the USB drive was
+   mounted on /mnt):
+
+   $ doas fw_update -p /mnt *-firmware-*.tgz
+   
+Disk Encryption
+---------------
+
+When installing, the following instructions from the OpenBSD FAQ
+worked to enable full disk encryption:
+
+    https://www.openbsd.org/faq/faq14.html#softraidFDE
+
+The OpenBSD Handbook also has a helpful guide on this:
+
+    https://www.openbsdhandbook.com/disk_operations/encryption/
+
+Screen
+------
+
+1. Touchscreen Calibration
+
+   After installation, my Surface Go 2's touchscreen was not well
+   calibrated.  The following page was very helpful in calibrating
+   the touchscreen:
+
+   https://www.tumfatig.net/2021/calibrate-your-touch-screen-on-openbsd/
+
+   One minor note, on the Surface Go 2, the touchscreen wasn't
+   automatically detected by xtsscale.  Instead, I needed to do
+   the following:
+
+   $ xtsscale -c -d /dev/wsmouse0
+
+   and add the output to /etc/wsconsctl.conf
+
+2. Setting the screen's color temperature
+
+   2.1. Install sct:
+
+        $ doas pkg_add sct
+
+   2.2. Add the following to ~/.xsession:
+
+        /usr/local/bin/sct [temp]
+
+        I use 4800 for [temp].
+
+3. The the screen's default brightness can be set by adding
+   the following to /etc/wsconsctl.conf:
+
+   display.brightness=[brightness]%
+
+   I use 2% as the [brightness].  
+
+4. Changing the screen resolution:
+
+   $ xrandr -s [size]
+   
+   From: https://how-to.fandom.com/wiki/How_to_change_screen_resolution_while_in_X-Windows
+
+5. Changing the mouse pointer size:
+
+    5.1. Install lxappearance:
+
+         $ doas pkg_add lxappearance
+
+    5.2. Run lxappearance and chose a larger pointer:
+
+         $ lxappearance &
+
+    See also: https://askubuntu.com/questions/75611/mouse-pointer-size-problem
+
+Trackpad
+--------
+
+1. Layout
+
+   Perhaps this should be obvious, but I did not realize that
+   the Surface Go 2's trackpad support three mouse buttons:
+
+        +-----------------------+
+        |                       |
+        |          [L]          |
+        |                       |
+        |                       |
+        +----------[M]-------[R]+
+
+   The left mouse button is most of the trackpad, while the
+   right mouse button is in the lower right of the trackpad,
+   and the middle mosue button in the lower center of the
+   trackpad.
+
+2. For Xemacs, to allow for scrolling via the trackpad, I had
+   to add the following to ~/.xemacs/custom.el:
+
+    ;; trackpad scrolling
+
+    (setq scroll-conservatively 101)
+    (global-set-key [mouse-4] 'scroll-down-command)
+    (global-set-key [mouse-5] 'scroll-up-command)
+
+Performance
+-----------
+
+The Surface Go 2 is usable, but not fast.  One setting (which
+is disabled by default for security reasons) that improved
+performance slightly was enabling hyperthreading by adding
+the following to /etc/sysctl.conf (and then rebooting):
+
+    hw.smt=1                # enable hyperthreading
+
+See: https://www.reddit.com/r/openbsd/comments/qa7a25/can_i_somehow_enable_hyperthreading/
+
