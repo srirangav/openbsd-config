@@ -1,0 +1,2 @@
+OpenBSD Icon: https://www.iconfinder.com/icons/7311/fish_openbsd_icon
+Xemacs Icon:  https://commons.wikimedia.org/wiki/File:Nuvola_apps_xemacs.png
