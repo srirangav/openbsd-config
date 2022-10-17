@@ -171,3 +171,7 @@ the following to /etc/sysctl.conf (and then rebooting):
 
 See: https://www.reddit.com/r/openbsd/comments/qa7a25/can_i_somehow_enable_hyperthreading/
 
+History
+-------
+
+2022-10-17 Initial version
