@@ -1,0 +1,82 @@
+OpenVPN on OpenBSD
+------------------
+
+These are my notes for connecting an OpenBSD 7.1 host to a VPN provider 
+that supports OpenVPN connections.
+
+1. Install OpenVPN:
+
+   $ doas pkg_add openvpn
+
+2. Install unzip (often needed to extract configuration files, which
+   may be provided by the VPN provider in zip format):
+
+   $ doas pkg_add unzip
+
+3. Download the OpenVPN configuration files for your VPN provider
+
+4. Make a directory to for the OpenVPN configuration files.  I use
+   ~/.config/openvpn/[VPN Provider]:
+
+   $ mkdir -p ~/.config/openvpn/[VPN Provider]
+
+5. Extract the OpenVPN configuration files into this directory, for
+   example:
+
+   $ cd ~/.config/openvpn/[VPN Provider] && unzip [VPN Provider].zip
+
+6. Start OpenVPN using the desired configuration file:
+
+   $ doas openvpn --config [config].ovpn
+
+   After entering the appropriate username and password, if the VPN
+   connection was successfully you should see a message in the following
+   format:
+
+   [DATE] [TIME] Initialization Sequence Completed
+
+7. To close then just press ^C (Control-C)
+
+Notes
+-----
+
+1. If you are using KeePassXC, you can have OpenVPN retrieve your login
+   information as follows:
+
+   $ keepassxc-cli show [KeePassXC DB file] [Entry Name] \
+     -a Username -a Password | \
+     doas openvpn --config [config].ovpn --auth-user-pass /dev/stdin
+
+   You may need to press return once to get the doas password prompt.
+
+2. If you see the following warning:
+
+      WARNING: No server certificate verification method has been enabled.  
+      See http://openvpn.net/howto.html#mitm for more info.
+
+   Add tbe followig line to the [config].opvn that you are using:
+
+       remote-cert-tls server
+
+   From: https://community.netgear.com/t5/Orbi/OpenVPN-warning-No-server-certificate-verification-method-has/td-p/1626831
+
+3. If you see the follwing error:
+
+      TLS Error: TLS key negotiation failed to occur within 60 seconds 
+      (check your network connectivity)
+
+   Make sure that the openvpn tcp and ucp ports are not blocked by pf(4)
+   (by default port 1194) and that tcp port 4443 is not blocked by pf(4)
+
+   From: https://openvpn.net/faq/tls-error-tls-key-negotiation-failed-to-occur-within-60-seconds-check-your-network-connectivity/
+
+References
+----------
+
+https://support.fastestvpn.com/tutorials/linux/debian/openvpn/
+https://github.com/lgcavalheiro/kpxc-ovpn/blob/master/kpxc-ovpn
+
+History
+-------
+
+2022-10-16 Initial version
