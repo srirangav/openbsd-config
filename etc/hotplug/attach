@@ -1,0 +1,81 @@
+#!/bin/sh
+# hotplugd attach
+# based on: 
+#     https://www.tumfatig.net/2011/automount-usb-stick-on-openbsd/
+#     https://romanzolotarev.com/openbsd/exfat.html
+#     https://askubuntu.com/questions/429848/
+#     https://www.systutorials.com/docs/linux/man/8-mount.exfat/
+
+DEVCLASS=$1
+DEVNAME=$2
+
+# mount directories 
+
+MOUNT_ROOT="/Volumes"
+MOUNT_DIR_SDMMC="$MOUNT_ROOT/microsd"
+MOUNT_DIR_DOS="$MOUNT_ROOT/dos"
+
+MOUNT_USER=nobody
+MOUNT_DMASK=022
+MOUNT_FMASK=133
+MOUNT_PERMS=755
+
+# mount commands
+
+MOUNT_EXFAT="/usr/local/sbin/mount.exfat"
+MOUNT_MSDOS="/sbin/mount_msdos"
+
+case "$DEVCLASS" in
+    # disks
+    2)
+       disktype="`/sbin/disklabel $DEVNAME 2>&1 | \
+                  /usr/bin/awk '/^label:/ { print $2 ; exit ; }'`"
+       logger -i "hotplugd: '$DEVNAME' is '$disktype'"
+       case "$disktype" in
+           # microsd card
+           "SD/MMC")
+
+               if [ ! -d "$MOUNT_DIR_SDMMC" ] ; then
+                  /bin/mkdir -p -m 1777 "$MOUNT_DIR_SDMMC" || exit $?
+               fi
+
+               mount_uid="`/usr/bin/id -u $MOUNT_USER`"
+               mount_gid="`/usr/bin/id -g $MOUNT_USER`"
+
+               mount_opts="dmask=$MOUNT_DMASK"
+               mount_opts="$mount_opts,fmask=$MOUNT_FMASK"
+               mount_opts="$mount_opts,uid=$mount_uid,gid=$mount_gid"
+               mount_opts="$mount_opts,noatime"
+
+               "$MOUNT_EXFAT" -o "$mount_opts" \
+                              "/dev/$DEVNAME"i "$MOUNT_DIR_SDMMC"
+           ;;
+
+           # some other disk
+           *)
+               diskfmt="`/sbin/disklabel $DEVNAME 2>&1 | \
+                        /usr/bin/awk '/^\ +i:\ +/ { print $NF ; exit ; }'`"
+               case "$diskfmt" in
+                   "MSDOS")
+                     
+                       if [ ! -d "$MOUNT_DIR_DOS" ] ; then
+                          /bin/mkdir -p -m 1777 "$MOUNT_DIR_DOS" || exit $?
+                       fi 
+
+                       mount_uid="`/usr/bin/id -u $MOUNT_USER`"
+                       mount_gid="`/usr/bin/id -g $MOUNT_USER`"
+
+                       mount_opts="noatime,nodev,nosuid"
+
+                       "$MOUNT_MSDOS" -o "$mount_opts" \
+                                      -u "$mount_uid" \
+                                      -g "$mount_gid" \
+                                      -m "$MOUNT_PERMS" \
+                                      "/dev/$DEVNAME"i "$MOUNT_DIR_DOS"
+                   ;;
+               esac
+           ;;
+       esac
+       ;;
+esac
+

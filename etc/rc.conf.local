@@ -1,4 +1,5 @@
 apmd_flags=-A
+hotplugd_flags=
 sshd_flags=NO
 unwind_flags=
 xenodm_flags=
