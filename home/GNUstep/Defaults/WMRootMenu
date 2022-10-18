@@ -2,14 +2,17 @@
   "Window Maker",
   (
     Applications,
-    (Terminals, (xterm, EXEC, xterm)),
+    (
+      Terminals,
+      (xterm, EXEC, xterm),
+      ("mate terminal", EXEC, "mate-terminal --zoom=1.25")
+    ),
     (
       Internet,
       (Firefox, EXEC, firefox),
       (Iridium, EXEC, "iridium --incognito"),
       (Chromium, EXEC, "chrome --enable-unveil --incognito")
     ),
-    (Mathematics, (bc, EXEC, "xterm -e bc"), (XCalc, EXEC, xcalc)),
     (
       Graphics,
       (Inkscape, EXEC, inkscape),
@@ -17,19 +20,12 @@
       (Geeqie, EXEC, geeqie),
       ("ImageMagick Display", EXEC, display)
     ),
-    (Multimedia, (Audacious, EXEC, audacious), (VLC, EXEC, vlc)),
     (
-      Editors,
-      (vi, EXEC, "xterm -e vi"),
-      (VIM, EXEC, "xterm -e vim"),
-      (XEdit, EXEC, xedit)
+      Multimedia,
+      (Audacious, EXEC, audacious),
+      (VLC, EXEC, vlc)
     ),
-    (
-      Development,
-      (glade, EXEC, glade),
-      (gdb, EXEC, "xterm -e gdb"),
-      (xev, EXEC, "xterm -e xev")
-    ),
+    (Editors, (emacs, EXEC, emacs)),
     (
       "Window Maker",
       ("System Monitor", EXEC, wmmon),
@@ -37,17 +33,6 @@
     ),
     (
       Office,
-      ("OpenOffice.org Writer", EXEC, oowriter),
-      ("OpenOffice.org Calc", EXEC, oocalc),
-      ("OpenOffice.org Draw", EXEC, oodraw),
-      ("OpenOffice.org Impress", EXEC, ooimpress),
-      ("OpenOffice.org Math", EXEC, oomath),
-      ("StarOffice Writer", EXEC, swriter),
-      ("StarOffice Calc", EXEC, scalc),
-      ("StarOffice Draw", EXEC, sdraw),
-      ("StarOffice Impress", EXEC, simpress),
-      ("StarOffice Math", EXEC, smath),
-      (StarOffice, EXEC, soffice),
       ("LibreOffice Writer", EXEC, lowriter),
       ("LibreOffice Calc", EXEC, localc),
       ("LibreOffice Draw", EXEC, lodraw),
@@ -56,22 +41,12 @@
       ("LibreOffice Base", EXEC, lobase),
       (LibreOffice, EXEC, libreoffice)
     ),
-    (Viewers, (Xpdf, EXEC, xpdf)),
-    (Utilities, (oclock, EXEC, oclock), (xclock, EXEC, xclock)),
-    (
-      System,
-      (Iostat, EXEC, "xterm -e iostat -p -k 5"),
-      (top, EXEC, "xterm -e top")
-    ),
-    (
-      "P2P Network",
-      (ftp, EXEC, "xterm -e ftp"),
-      (sftp, EXEC, "xterm -e sftp")
-    )
+    (Viewers, (Xpdf, EXEC, xpdf))
   ),
   (Run..., EXEC, "%A(Run, Type command:)"),
   (
     Appearance,
+    ("Configure Window Maker", EXEC, WPrefs),
     (
       Themes,
       OPEN_MENU,
@@ -127,7 +102,7 @@
           "wdwrite WindowMaker WorkspaceBack '(solid, \"#333340\")'"
         ),
         (
-          "Periwinkle",
+          Periwinkle,
           EXEC,
           "wdwrite WindowMaker WorkspaceBack '(solid, \"#52577D\")'"
         ),
@@ -207,16 +182,7 @@
     ("Save Session", SAVE_SESSION),
     ("Clear Session", CLEAR_SESSION)
   ),
-  ("Configure Window Maker", EXEC, WPrefs),
-  ("Info Panel", INFO_PANEL),
   ("Restart Window Maker", RESTART),
-  (
-    "Other Window Managers",
-    ("Start twm", RESTART, twm),
-    ("Start Motif Window Manager", RESTART, mwm),
-    ("Start FVWM", RESTART, fvwm)
-  ),
   ("Lock Screen", EXEC, "xlock -allowroot -usefirst -mode blank"),
-  ("Sleep", EXEC, "apm -Z"),
   ("Exit Window Maker", EXIT)
 )
