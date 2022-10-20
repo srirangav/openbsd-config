@@ -22,6 +22,7 @@ ${x11exec_prefix}/xrdb -merge ~/.Xresources
 ${x11exec_prefix}/xmodmap ~/.xmodmap
 
 # uncomment to fix scaling of some X/QT Programs
+# see: https://marc.info/?l=openbsd-tech&m=163674121630769&w=2
 
 #${x11exec_prefix}/xrandr --dpi 96
 
