@@ -16,7 +16,7 @@ export MOZ_USE_XINPUT2 MOZ_ACCELERATED MOZ_WEBRENDER
 
 # try to increase the cursor size
 
-XCURSOR_SIZE=48
+XCURSOR_SIZE=52
 export XCURSOR_SIZE
 
 # HIDPI
