@@ -33,7 +33,7 @@ Booting / Shutdown / Restart
    helpful:
 
    https://support.microsoft.com/en-us/surface/boot-surface-from-a-usb-device-fe7a7323-8d1d-823d-be17-9aec89c4f9f5
-   
+
    https://support.microsoft.com/en-us/surface/force-a-shutdown-and-restart-your-surface-cf13996e-fef0-dbb0-1e94-cdd7ff88b840
 
 2. Enabling apmd(8) for power / battery monitoring:
@@ -43,7 +43,7 @@ Booting / Shutdown / Restart
    $ doas rcctl start apmd
 
    From: https://dataswamp.org/~solene/2021-05-03-openbsd-getting-started.html
-   
+
 3. To hibernate (no other sleep mode works on the Surface Go 2):
 
    $ apm -Z
@@ -62,7 +62,7 @@ Firmware
    mounted on /mnt):
 
    $ doas fw_update -p /mnt *-firmware-*.tgz
-   
+
 Disk Encryption
 ---------------
 
@@ -94,38 +94,44 @@ Screen
 
    and add the output to /etc/wsconsctl.conf
 
-2. Setting the screen's color temperature
+2. Disabling the touchscreen
 
-   2.1. Install sct:
+   To disable the touchscreen add the following to ~/.xsession:
+
+        xinput disable /dev/wsmouse0
+
+3. Setting the screen's color temperature
+
+   3.1. Install sct:
 
         $ doas pkg_add sct
 
-   2.2. Add the following to ~/.xsession:
+   3.2. Add the following to ~/.xsession:
 
         /usr/local/bin/sct [temp]
 
         I use 4800 for [temp].
 
-3. The the screen's default brightness can be set by adding
+4. The the screen's default brightness can be set by adding
    the following to /etc/wsconsctl.conf:
 
    display.brightness=[brightness]%
 
-   I use 2% as the [brightness].  
+   I use 10% for [brightness].
 
-4. Changing the screen resolution:
+5. Changing the screen resolution:
 
    $ xrandr -s [size]
-   
+
    From: https://how-to.fandom.com/wiki/How_to_change_screen_resolution_while_in_X-Windows
 
-5. Changing the mouse pointer size:
+6. Changing the mouse pointer size:
 
-    5.1. Install lxappearance:
+    6.1. Install lxappearance:
 
          $ doas pkg_add lxappearance
 
-    5.2. Run lxappearance and chose a larger pointer:
+    6.2. Run lxappearance and chose a larger pointer:
 
          $ lxappearance &
 
@@ -160,6 +166,19 @@ Trackpad
     (global-set-key [mouse-4] 'scroll-down-command)
     (global-set-key [mouse-5] 'scroll-up-command)
 
+Networking
+----------
+
+To randomize the MAC address used when connecting to WiFi,
+add 'lladdr random' after the WiFi network name and Password
+in /etc/hostname.iwx0:
+
+    join '[WiFi Network]' wpakey '[WiFi Password]' lladdr random
+    ...
+    inet autoconf
+
+See: https://old.reddit.com/r/openbsd/comments/u09z20
+
 Performance
 -----------
 
@@ -170,9 +189,12 @@ the following to /etc/sysctl.conf (and then rebooting):
 
     hw.smt=1                # enable hyperthreading
 
-See: https://www.reddit.com/r/openbsd/comments/qa7a25/can_i_somehow_enable_hyperthreading/
+See: https://www.reddit.com/r/openbsd/comments/qa7a25/
 
 History
 -------
 
-2022-10-17 Initial version
+2022-10-17  Initial version
+2022-10-19  Add instructions to disable the touchscreen,
+            and add instructions on randomizing the MAC
+            address
