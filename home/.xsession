@@ -49,7 +49,14 @@ ulimit -Sc 0
 # load X11 settings
 
 ${x11exec_prefix}/xrdb  -DHIDPI=1 -DHOME=$HOME -merge ~/.Xresources
-${x11exec_prefix}/xmodmap ~/.xmodmap
+if [ -r ~/.xmodmap ] ; then
+    ${x11exec_prefix}/xmodmap ~/.xmodmap
+fi
+
+# disable caps lock
+# see: https://unix.stackexchange.com/questions/570297
+
+${x11exec_prefix}/setxkbmap -option caps:none
 
 # uncomment to fix scaling of some X/QT Programs
 # see: https://marc.info/?l=openbsd-tech&m=163674121630769&w=2
@@ -81,7 +88,7 @@ ${localexec_prefix}/picom -b -c &
 # start a terminal 
 
 #/usr/X11R6/bin/xterm -bg black -fg green &
-${localexec_prefix}/mate-terminal &
+${localexec_prefix}/mate-terminal --zoom=1.2 &
 
 # uncomment to start some window maker utilities 
 
