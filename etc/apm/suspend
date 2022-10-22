@@ -1,0 +1,5 @@
+#!/bin/sh
+# apm/suspend
+
+# lock the screen on suspend
+pkill -USR1 xidle

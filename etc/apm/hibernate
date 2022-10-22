@@ -1,0 +1,5 @@
+#!/bin/sh
+# apm/hibernate
+
+# lock the screen on hibernate
+pkill -USR1 xidle
