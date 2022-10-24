@@ -1,0 +1,5 @@
+#!/bin/sh
+# apm/resume
+
+# make sure the screen is locked after resuming from sleep
+/usr/bin/pkill -USR1 xidle
