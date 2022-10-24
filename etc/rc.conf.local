@@ -1,3 +1,4 @@
+multicast=YES
 apmd_flags=-A
 hotplugd_flags=
 pkg_scripts=messagebus avahi_daemon cupsd cups_browsed
