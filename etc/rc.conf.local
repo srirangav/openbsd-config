@@ -1,7 +1,7 @@
-multicast=YES
 apmd_flags=-A
 hotplugd_flags=
-pkg_scripts=messagebus avahi_daemon cupsd cups_browsed
+#multicast=YES
+pkg_scripts=messagebus cupsd
 sshd_flags=NO
 unwind_flags=
 xenodm_flags=
