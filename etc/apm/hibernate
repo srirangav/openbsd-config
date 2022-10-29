@@ -1,5 +1,7 @@
 #!/bin/sh
 # apm/hibernate
 
+umount /Volumes/microsd
+
 # lock the screen on hibernate
 pkill -USR1 xidle
