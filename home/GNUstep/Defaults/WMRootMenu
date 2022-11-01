@@ -47,6 +47,7 @@
   (
     Appearance,
     ("Configure Window Maker", EXEC, WPrefs),
+    ("LXAppearance", EXEC, /usr/local/bin/lxappearance),
     (
       Themes,
       OPEN_MENU,
