@@ -68,6 +68,7 @@ $(PF_BL):
 $(UNWIND_BL): $(UNWINDBL_FILES)
 	$(CAT) $(UNWINDBL_FILES) | \
     $(GREP) -Ev '^localhost|^192\.168\.|^10\.|172\.16\.|127\.0\.0\.0|0\.0\.0\.0|^#|#$$' | \
+    $(SED) -e 's/\.$//' | \
     $(SORT) -f | \
     $(UNIQ) -ui > $(UNWIND_BL)
 
