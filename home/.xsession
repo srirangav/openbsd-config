@@ -32,6 +32,8 @@ x11prefix="/usr/X11R6"
 x11exec_prefix="${x11prefix}/bin"
 localprefix="/usr/local"
 localexec_prefix="${localprefix}/bin"
+lemonbar_font="lucidasanstypewriter-18"
+dstat_if="iwx0"
 
 # cleanup function for when X11 exits
 
@@ -89,6 +91,11 @@ ${localexec_prefix}/picom -b -c &
 
 #/usr/X11R6/bin/xterm -bg black -fg green &
 ${localexec_prefix}/mate-terminal --zoom=1.2 &
+
+# start dstat and lemonbar
+
+${localexec_prefix}/dstat ${dstat_if} | \
+${localexec_prefix}/lemonbar -d -b -f ${lemonbar_font} &
 
 # uncomment to start some window maker utilities 
 
