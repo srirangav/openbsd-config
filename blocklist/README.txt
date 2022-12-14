@@ -44,4 +44,4 @@ https://www.tumfatig.net/2022/ads-blocking-with-openbsd-unbound8/
 https://github.com/horia/unwinder/blob/master/src/etc/unwind.conf
 https://github.com/elasmo/openbsd-helpers/blob/master/unbound-blacklist.sh
 https://github.com/drduh/config/blob/master/scripts/pf-blocklist.sh
-
+https://geoghegan.ca/pfbadhost-2.html
