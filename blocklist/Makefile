@@ -2,7 +2,8 @@
 # based on: https://github.com/elasmo/openbsd-helpers/blob/master/unbound-blacklist.sh
 #           https://github.com/drduh/config/blob/master/scripts/pf-blocklist.sh
 #           https://www.tumfatig.net/2022/ads-blocking-with-openbsd-unbound8/
- 
+#           https://geoghegan.ca/pfbadhost-2.html
+
 # blocklist names and locations
 
 BL_DIR        = /var/db
@@ -37,7 +38,12 @@ PF_BL_URLS     = 'https://pgl.yoyo.org/adservers/iplist.php?ipformat=&showintro=
                  'https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/firehol_level1.netset' \
                  'https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/firehol_level2.netset' \
                  'https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/firehol_level3.netset' \
-                 'https://isc.sans.edu/api/threatlist/shodan/shodan.txt'
+                 'https://isc.sans.edu/api/threatlist/shodan/shodan.txt' \
+                 'https://feodotracker.abuse.ch/downloads/ipblocklist.txt' \
+                 'https://sslbl.abuse.ch/blacklist/sslipblacklist.txt' \
+                 'https://www.spamhaus.org/drop/drop.txt' \
+                 'https://www.spamhaus.org/drop/edrop.txt' \
+                 'https://www.spamhaus.org/drop/dropv6.txt'
 
 # programs
 
@@ -58,17 +64,18 @@ all: $(UNWIND_BL) $(PF_BL)
 
 $(PF_BL):
 	$(FTP) -o - $(PF_BL_URLS) | \
-    $(GREP) -Ev '^192\.168\.|^10\.|172\.16\.|127\.0\.0\.0|0\.0\.0\.0|^#|#$$' | \
+    $(GREP) -Ev '^192\.168\.|^10\.|172\.16\.|127\.0\.0\.0|0\.0\.0\.0|^[#\;]|#$$' | \
     $(GREP) -E '^[0-9]' | \
+    $(SED) -e 's/ \;.*$$//' | \
     $(SORT) -f | \
     $(UNIQ) -ui > $(PF_BL)
 
 # unwind blocklist
 
 $(UNWIND_BL): $(UNWINDBL_FILES)
-	$(CAT) $(UNWINDBL_FILES) | \
-    $(GREP) -Ev '^localhost|^192\.168\.|^10\.|172\.16\.|127\.0\.0\.0|0\.0\.0\.0|^#|#$$' | \
-    $(SED) -e 's/\.$//' | \
+	$(GREP) -Evh '^localhost|^192\.168\.|^10\.|172\.16\.|127\.0\.0\.0|0\.0\.0\.0|^#|#$$' \
+                $(UNWINDBL_FILES) | \
+    $(SED) -e 's/\.$$//' | \
     $(SORT) -f | \
     $(UNIQ) -ui > $(UNWIND_BL)
 
