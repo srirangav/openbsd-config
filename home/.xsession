@@ -92,10 +92,10 @@ ${localexec_prefix}/picom -b -c &
 #/usr/X11R6/bin/xterm -bg black -fg green &
 ${localexec_prefix}/mate-terminal --zoom=1.2 &
 
-# start dstat and lemonbar
+# uncomment to start dstat and lemonbar
 
-${localexec_prefix}/dstat ${dstat_if} | \
-${localexec_prefix}/lemonbar -d -b -f ${lemonbar_font} &
+#${localexec_prefix}/dstat ${dstat_if} | \
+#${localexec_prefix}/lemonbar -d -b -f ${lemonbar_font} &
 
 # uncomment to start some window maker utilities 
 
